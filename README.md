@@ -2,6 +2,8 @@
 
 Interactive Fluid Dynamics & Energy Optimization Simulator for the STEM Innovation Challenge 2026 Hackathon.
 
+[Open the live simulator](https://fken2578-boop.github.io/FlowWise/) · [Jump to the upgrade comparison](https://fken2578-boop.github.io/FlowWise/#comparison)
+
 FlowWise estimates pump head, electrical power, annual energy and annual cost for a baseline pipe design and a proposed upgrade. Editing any input recalculates both designs in the browser. The baseline head breakdown shows how much comes from static lift and how much comes from pipe friction.
 
 ## Run the preview
@@ -48,6 +50,6 @@ node --input-type=module -e "import { calculateDesign } from './src/model/simula
 
 Look for a Reynolds number near 1000 and a friction pressure loss near 3.2 Pa. The same module exports `compareDesigns(duty, baselineDesign, upgradeDesign, investment)`. Pass the common duty once and give each design its own diameter, roughness and combined efficiency.
 
-## Deployment target
+## Deployment
 
-The site uses paths relative to `index.html` and needs no build or package installation. For the release phase, push the reviewed project to GitHub, open **Settings → Pages**, choose **Deploy from a branch**, then **main** and **/(root)**. The empty `.nojekyll` file requests plain static publishing. Verify the page and its assets at the resulting repository URL. [GitHub Pages publishing sources](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
+GitHub Pages serves this repository from **main → /(root)**. Push a reviewed update to that branch to trigger publication. The site uses relative paths and an empty `.nojekyll` file for plain static publishing. [GitHub Pages publishing sources](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)

@@ -13,7 +13,7 @@ Time boxes are estimates for one developer and total 24 hours. Each phase ends a
 
 ## Status
 
-Phases 0 through 3 have passed their acceptance gates. The remaining phase covers demo rehearsal, release checks and GitHub Pages deployment.
+Phases 0 through 3 passed their acceptance gates. Phase 4 public deployment and browser checks are complete. A timed presenter rehearsal and the developer's review of the competition submission materials remain open.
 
 ## Phase 0 verification · 2026-11-24
 
@@ -46,3 +46,9 @@ Phases 0 through 3 have passed their acceptance gates. The remaining phase cover
 - Matching all design inputs gave identical table columns, zero savings and unavailable payback. With identical pipe geometry and 60% upgrade efficiency, the upgrade cost 431.084 CU/year, savings were −86.2167 CU/year and the numeric payback cleared.
 - With positive savings, clearing the extra installed cost preserved savings and cleared payback. Zero extra cost gave zero years. Setting the shared tariff to zero gave two zero bills and no numeric payback.
 - At 0.35 L/s with 100 and 125 mm diameters, the baseline was turbulent and the upgrade transitional. Only the supported baseline retained its bill. A zero upgrade diameter flagged the upgrade control. Both cases cleared savings and payback. **Restore example** recovered the reference comparison in the browser.
+
+## Phase 4 public release · 2026-11-24
+
+- Published the simulator in commit `627a9da` from the main branch root. Ran `node --test` with 26 passes, 0 failures and 0 skips. [Public simulator](https://fken2578-boop.github.io/FlowWise/)
+- An anonymous HTTPS client fetched the homepage, stylesheet, favicon and all three JavaScript modules. Each returned HTTP 200 and matched its Git blob byte for byte.
+- In a fresh browser tab at the public URL, the default design comparison showed 73.8359 CU/year savings and 13.5435 years of payback. In a 390 × 844 viewport, a keyboard edit changed installed cost from 1000 to 500 CU. Savings stayed constant and payback fell to 6.77177 years. Activating **Restore example** with Enter restored the original results. Content and client widths were both 375 CSS pixels.

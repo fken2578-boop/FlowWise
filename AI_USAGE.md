@@ -29,3 +29,5 @@ Codex compared the displayed example with a direct Node call and exercised equiv
 ## Release preparation · 2026-11-24
 
 The developer selected the GitHub repository and authorized publication of the source and the Pages site. Codex connected the local checkout to the repository, preserved its initial README commit, and reran the 26 automated tests before preparing the source release.
+
+Codex published the project using a deploy key scoped to FlowWise and enabled branch-based Pages publishing. It verified the published runtime files against Git, exercised the public comparison with keyboard input in a narrow viewport and added the live link and observed results to the release notes.
