@@ -6,19 +6,6 @@ Interactive Fluid Dynamics & Energy Optimization Simulator for the STEM Innovati
 
 FlowWise estimates pump head, electrical power, annual energy and annual cost for a baseline pipe design and a proposed upgrade. Editing any input recalculates both designs in the browser. The baseline head breakdown shows how much comes from static lift and how much comes from pipe friction.
 
-## Run the preview
-
-From PowerShell, use the installed Python standard library.
-
-```powershell
-cd E:\FlowWise
-python -B -m http.server 8000 --bind 127.0.0.1
-```
-
-Open [the local simulator](http://127.0.0.1:8000/). The initial values are an illustrative design. Enter flow in L/s, diameter and wall roughness in mm, efficiency in percent, and tariff in your own currency units (CU) per kWh. Use **Restore example** to reset the form. Expand **Model assumptions** to see the regime limits. Press Ctrl+C in the terminal to stop the server. If port 8000 is occupied, use 8001 in both the command and the URL.
-
-To reproduce the laminar benchmark, start with **Restore example**, set flow to 0.07853981633974483 L/s, wall roughness to 0 mm and static lift to 0 m. The page should show Re of 1000, friction pressure loss of 3.2 Pa and friction head of 0.000326198 m at display precision. Increase flow to 0.23561944901923448 L/s to see the transition warning and the dependent values clear.
-
 ## Compare two designs
 
 Choose **Compare an upgrade** to edit the upgrade diameter, roughness, pump and drive efficiency, and extra installed cost. Flow rate, pipe length, static lift, hours and tariff come from the baseline operating inputs. The comparison shows which design inputs changed, both annual bills, signed annual savings and simple payback.
