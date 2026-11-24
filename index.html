@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Compare pump head, electricity use, annual savings and simple payback for two single-pipe water designs.">
+  <title>FlowWise | Fluid Dynamics &amp; Energy Optimization</title>
+  <link rel="icon" href="./favicon.ico">
+  <link rel="stylesheet" href="./styles/site.css">
+  <script type="module" src="./src/ui/app.mjs"></script>
+</head>
+<body>
+  <header class="masthead">
+    <strong class="brand"><span class="brand-mark" aria-hidden="true">≈</span>FlowWise</strong>
+    <span>STEM Innovation Challenge 2026</span>
+  </header>
+  <main>
+    <h1>Pump energy simulator</h1>
+    <p class="intro">Estimate the electricity needed to pump water through a pipe, then compare the cost of an upgrade.</p>
+    <nav aria-label="Simulator sections"><a href="#baseline">Baseline design</a><a href="#comparison">Compare an upgrade ↓</a></nav>
+    <noscript><p>Enable JavaScript to calculate results in your browser.</p></noscript>
+    <form id="design-form" autocomplete="off">
+    <div id="baseline" class="workspace">
+      <section class="panel inputs" aria-labelledby="baseline-title">
+        <div class="panel-heading">
+          <h2 id="baseline-title">Baseline design</h2>
+          <button type="reset">Restore example</button>
+        </div>
+        <p class="hint">Edit the example values to recalculate.</p>
+        <fieldset>
+          <legend>Pipe and flow</legend>
+          <div class="input-grid">
+            <label>Flow rate <span class="control"><input name="flowLs" type="number" step="any" min="0" required value="10"><span>L/s</span></span></label>
+            <label>Inner diameter <span class="control"><input name="diameterMm" type="number" step="any" min="0" required value="100"><span>mm</span></span></label>
+            <label>Pipe length <span class="control"><input name="lengthM" type="number" step="any" min="0" required value="100"><span>m</span></span></label>
+            <label>Wall roughness <span class="control"><input name="roughnessMm" type="number" step="any" min="0" required value="0.045"><span>mm</span></span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Pump and operation</legend>
+          <div class="input-grid">
+            <label>Static lift <span class="control"><input name="staticLiftM" type="number" step="any" min="0" required value="5"><span>m</span></span></label>
+            <label>Pump &amp; drive efficiency <span class="control"><input name="efficiencyPct" type="number" step="any" min="0" max="100" required value="75"><span>%</span></span></label>
+            <label>Operating time <span class="control"><input name="hoursPerYear" type="number" step="any" min="0" max="8760" required value="2000"><span>h/year</span></span></label>
+            <label>Electricity tariff <span class="control"><input name="tariffPerKwh" type="number" step="any" min="0" required value="0.20"><span>CU/kWh</span></span></label>
+          </div>
+        </fieldset>
+        <p class="hint currency">CU is the currency unit of your tariff.</p>
+        <p id="feedback" class="feedback" role="status"></p>
+      </section>
+
+      <section class="panel results" aria-labelledby="results-title">
+        <div class="panel-heading"><h2 id="results-title">Baseline results</h2></div>
+        <dl class="annual">
+          <div><dt>Annual electricity use</dt><dd><strong data-result="annualEnergyKwh">—</strong> kWh/year</dd></div>
+          <div><dt>Annual electricity cost</dt><dd><strong data-result="annualCost">—</strong> CU/year</dd></div>
+        </dl>
+        <div class="head">
+          <h3>Pump head</h3>
+          <p class="head-total"><strong data-result="pumpHeadM">—</strong> m</p>
+          <div class="head-bar" aria-hidden="true"><span id="lift-share"></span><span id="friction-share"></span></div>
+          <dl class="head-key">
+            <div><dt>Static lift</dt><dd><span data-result="staticLiftM">—</span> m</dd></div>
+            <div><dt>Friction loss</dt><dd><span data-result="frictionHeadM">—</span> m</dd></div>
+          </dl>
+        </div>
+        <dl class="readings">
+          <div><dt>Flow regime</dt><dd data-result="regime">—</dd></div>
+          <div><dt>Reynolds number</dt><dd data-result="reynoldsNumber">—</dd></div>
+          <div><dt>Mean water speed</dt><dd><span data-result="speedMs">—</span> m/s</dd></div>
+          <div><dt>Darcy friction factor</dt><dd data-result="darcyFactor">—</dd></div>
+          <div><dt>Frictional pressure loss</dt><dd><span data-result="frictionPressurePa">—</span> Pa</dd></div>
+          <div><dt>Hydraulic power</dt><dd><span data-result="hydraulicPowerW">—</span> W</dd></div>
+          <div><dt>Electrical input power</dt><dd><span data-result="electricalPowerW">—</span> W</dd></div>
+        </dl>
+      </section>
+    </div>
+    <section id="comparison" aria-labelledby="comparison-title">
+      <h2 id="comparison-title">Compare an upgrade</h2>
+      <p class="section-intro">Both designs deliver the same flow over the same pipe length and static lift, at the same operating hours and electricity tariff.</p>
+      <div class="workspace">
+        <fieldset class="panel upgrade-inputs" aria-labelledby="upgrade-title">
+          <h3 id="upgrade-title">Upgrade inputs</h3>
+          <div class="input-grid">
+            <label>Upgrade inner diameter <span class="control"><input name="upgradeDiameterMm" type="number" step="any" min="0" required value="125"><span>mm</span></span></label>
+            <label>Upgrade wall roughness <span class="control"><input name="upgradeRoughnessMm" type="number" step="any" min="0" required value="0.045"><span>mm</span></span></label>
+            <label>Upgrade pump &amp; drive efficiency <span class="control"><input name="upgradeEfficiencyPct" type="number" step="any" min="0" max="100" required value="80"><span>%</span></span></label>
+            <label>Extra installed cost <span class="control"><input name="investment" type="number" step="any" min="0" required value="1000"><span>CU</span></span></label>
+          </div>
+          <p class="hint changes" id="changes"></p>
+          <p id="upgrade-feedback" class="feedback" role="status"></p>
+        </fieldset>
+        <section class="panel" aria-labelledby="economics-title">
+          <h3 id="economics-title">Upgrade economics</h3>
+          <dl class="annual">
+            <div><dt>Annual savings</dt><dd><strong id="annual-savings">—</strong> CU/year</dd></div>
+            <div><dt>Simple payback</dt><dd><strong id="payback">—</strong> <span id="payback-unit" hidden>years</span></dd></div>
+          </dl>
+          <p id="verdict" role="status"></p>
+          <table class="comparison-table" aria-label="Operating results at the shared duty">
+            <thead><tr><th scope="col">Operating result</th><th scope="col">Baseline</th><th scope="col">Upgrade</th></tr></thead>
+            <tbody>
+              <tr data-compare="regime"><th scope="row">Flow regime</th><td>—</td><td>—</td></tr>
+              <tr data-compare="pumpHeadM"><th scope="row">Pump head (m)</th><td>—</td><td>—</td></tr>
+              <tr data-compare="electricalPowerW"><th scope="row">Electrical input (W)</th><td>—</td><td>—</td></tr>
+              <tr data-compare="annualEnergyKwh"><th scope="row">Annual use (kWh/year)</th><td>—</td><td>—</td></tr>
+              <tr data-compare="annualCost"><th scope="row">Annual cost (CU/year)</th><td>—</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </section>
+    </form>
+    <details class="notes">
+      <summary>Model assumptions</summary>
+      <p>Water flows steadily through one full, straight pipe between open reservoirs. Total pump head equals the rise between the water surfaces plus pipe friction loss. The estimate omits fittings, entrance and exit losses, and pump curves.</p>
+      <p>The model uses water density of 1000 kg/m³, dynamic viscosity of 0.001 Pa·s and constant combined pump and drive efficiency. Reynolds number and Darcy friction factor are dimensionless. In transitional flow (2300 ≤ Re &lt; 4000), friction and energy estimates are unavailable.</p>
+      <p>Annual savings equal baseline electricity cost minus upgrade electricity cost. For positive savings, simple payback divides the extra installed cost by annual savings. It excludes maintenance, financing and discounting.</p>
+    </details>
+  </main>
+  <footer>
+    <span>FlowWise · Single-pipe water model</span>
+    <span>Calculated locally in your browser</span>
+  </footer>
+</body>
+</html>

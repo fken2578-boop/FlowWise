@@ -1,0 +1,10 @@
+# Local tools and generated files
+node_modules/
+__pycache__/
+*.py[cod]
+coverage/
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
